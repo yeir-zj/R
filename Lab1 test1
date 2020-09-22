@@ -1,0 +1,197 @@
+#@Author:Zhoujie_1930416029
+#@Email:1930416029@suda.stu.edu.cn
+#@Timestamp for Creation: 2020-09-14 10:18
+#@Last Modified by: Zhoujie
+#Timestamp for Last Modificantion: 2020-9-15 17:50
+#objective: Lab1 Q1
+#Q1:use the read.table() fuction to read the data in "groupA.txt", "groupB.txt", "groupC.txt", "groupD.txt" in "group"，
+#and use two methods to generate the following format of data.frame, named after Dat1。
+#12   group A
+#13   group A
+#13   group A
+#16   group A
+#14   group B
+#14   group B
+#18   group C
+#……
+#**************************************************
+#方法一
+#**************************************************
+#set the current work path
+setwd("D:/Lab1_data/group")
+
+#read the data in files
+DatA <- read.table("groupA.txt",header=FALSE)
+# V1
+#1 40
+#2 40
+#3 50
+#4 60
+#5 65
+#6 72
+
+DatB <- read.table("groupB.txt",header=FALSE)
+# V1
+#1 34
+#2 55
+#3 66
+#4 40
+#5 40
+#6 50
+DatC <- read.table("groupC.txt",header=FALSE)
+# V1
+#1 60
+#2 65
+#3 72
+#4 79
+#5 49
+#6 39
+DatD <- read.table("groupD.txt",header=FALSE)
+# V1
+#1  72
+#2  79
+#3  86
+#4  93
+#5 100
+#6 107
+
+#use cbind() to combind each dataFrame with its group informantion.
+L1 <- cbind(DatA,"groupA")
+# V1 "groupA"
+#1 40   groupA
+#2 40   groupA
+#3 50   groupA
+#4 60   groupA
+#5 65   groupA
+#6 72   groupA
+L2 <- cbind(DatB,"groupB")
+# V1 "groupB"
+#1 34   groupB
+#2 55   groupB
+#3 66   groupB
+#4 40   groupB
+#5 40   groupB
+#6 50   groupB
+L3 <- cbind(DatC,"groupC")
+# V1 "groupC"
+#1 60   groupC
+#2 65   groupC
+#3 72   groupC
+#4 79   groupC
+#5 49   groupC
+#6 39   groupC
+L4 <- cbind(DatD,"groupD")
+# V1 "groupD"
+#1  72   groupD
+#2  79   groupD
+#3  86   groupD
+#4  93   groupD
+#5 100   groupD
+#6 107   groupD
+
+#use colnames() to change L1,L2,L3 and L4 to uniform column names
+colnames(L1) <- c("Data","Group")
+# Data  Group
+#1   40 groupA
+#2   40 groupA
+#3   50 groupA
+#4   60 groupA
+#5   65 groupA
+#6   72 groupA
+colnames(L2) <- c("Data","Group")
+# Data  Group
+#1   34 groupB
+#2   55 groupB
+#3   66 groupB
+#4   40 groupB
+#5   40 groupB
+#6   50 groupB
+colnames(L3) <- c("Data","Group")
+#Data  Group
+#1   60 groupC
+#2   65 groupC
+#3   72 groupC
+#4   79 groupC
+#5   49 groupC
+#6   39 groupC
+colnames(L4) <- c("Data","Group")
+#Data  Group
+#1   60 groupC
+#2   65 groupC
+#3   72 groupC
+#4   79 groupC
+#5   49 groupC
+#6   39 groupC
+
+#use rbind() to combine L1,L2,L3 and L4
+Dat1 <- rbind(L1,L2,L3,L4)
+# Data  Group
+#1   40 groupA
+#2   40 groupA
+#3   50 groupA
+#4   60 groupA
+#5   65 groupA
+#6   72 groupA
+
+#***************************************************
+#方法二
+#***************************************************
+#set the current work path
+setwd("D:/Lab1_data/group")
+
+#read the data in files
+DatA <- read.table("groupA.txt",header=FALSE)
+# V1
+#1 40
+#2 40
+#3 50
+#4 60
+#5 65
+#6 72
+
+DatB <- read.table("groupB.txt",header=FALSE)
+# V1
+#1 34
+#2 55
+#3 66
+#4 40
+#5 40
+#6 50
+
+DatC <- read.table("groupC.txt",header=FALSE)
+# V1
+#1 60
+#2 65
+#3 72
+#4 79
+#5 49
+#6 39
+
+DatD <- read.table("groupD.txt",header=FALSE)
+# V1
+#1  72
+#2  79
+#3  86
+#4  93
+#5 100
+#6 107
+
+#use t() to transpose DatA,DatB,DatC,DatD
+DatA <- c(t(DatA))
+#[1] 40 40 50 60 65 72
+DatB <- c(t(DatB))
+#[1] 34 55 66 40 40 50
+DatC <- c(t(DatC))
+#[1] 60 65 72 79 49 39
+DatD <- c(t(DatD))
+#[1]  72  79  86  93 100 107
+
+#use stack() to combine DatA,DatB,DatC and DatD
+Dat1 <- stack(list(groupA=DatA,groupB=DatB,groupC=DatC,groupD=DatD))
+#  values    ind
+#1     40 groupA
+#2     40 groupA
+#3     50 groupA
+#4     60 groupA
+#5     65 groupA
+#6     72 groupA
